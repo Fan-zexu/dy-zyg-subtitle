@@ -1,0 +1,123 @@
+{
+  "$schema": "知识库自动化配置文件 --- 任何 Agent 读取此文件即可了解数据源和处理规则",
+  "version": "1.0.0",
+  "last_updated": "2026-06-28",
+
+  "source": {
+    "platform": "douyin",
+    "blogger": "治愈果（kakki在说啥）",
+    "homepage": "https://www.douyin.com/user/MS4wLjABAAAApF2UXXATlaxqApAUdnRnYIeHaqx9sGCjLX1sW1gV-tI",
+    "sec_uid": "MS4wLjABAAAApF2UXXATlaxqApAUdnRnYIeHaqx9sGCjLX1sW1gV-tI",
+    "note": "处理所有心理学、情感、认知成长类视频，跳过纯广告/引流和极短视频（<15秒）"
+  },
+
+  "subtitle_extraction": {
+    "skill": "dy-subtitle-extractor-skill",
+    "script": "scripts/douyin_subtitle_batch.py",
+    "strategy": "优先平台AI字幕，无字幕时Whisper本地转录兜底",
+    "whisper_model": "large",
+    "whisper_model_note": "治愈果视频均在12分钟以内，统一用large模型保证心理学术语识别精度",
+    "skip_short_seconds": 15,
+    "output_formats": [".srt", ".md", ".txt"]
+  },
+
+  "transcript_polish": {
+    "skill": "psychology-content-polish",
+    "skill_repo": "https://github.com/Fan-zexu/psychology-content-polish-skill",
+    "output_suffix": "",
+    "note": "直接覆盖原md文件，不生成_润色版后缀",
+    "core_principles": [
+      "保留作者原话和口语风格",
+      "去除时间戳和元数据",
+      "碎句合并为自然段落",
+      "按作者分点逻辑分章节",
+      "心理学术语纠错",
+      "提炼金句和引用参考"
+    ]
+  },
+
+  "classification": {
+    "categories": [
+      {
+        "emoji": "💕",
+        "name": "亲密关系与恋爱",
+        "keywords": ["恋爱", "亲密关系", "伴侣", "择偶", "正缘", "孽缘", "两性", "上头", "追", "分手", "复合", "暧昧", "依恋", "安全感", "长期关系", "婚恋", "霸凌", "煤气灯", "情侣", "爱情", "恋人", "脱单", "告白"]
+      },
+      {
+        "emoji": "🚀",
+        "name": "个人成长与认知升级",
+        "keywords": ["成长", "认知", "自律", "习惯", "思维", "格局", "低谷", "自信", "逆袭", "决策", "选择", "终身成长", "执行力", "意志力", "阅读", "读书", "学习", "坚持", "纯粹", "心无杂念"]
+      },
+      {
+        "emoji": "🧠",
+        "name": "心理学与认知",
+        "keywords": ["心理学", "潜意识", "防御机制", "认知失调", "人格", "MBTI", "大脑", "神经", "记忆", "心理效应", "间歇性强化", "投射", "镜像", "元认知", "富兰克林效应"]
+      },
+      {
+        "emoji": "🌱",
+        "name": "情绪管理与心理健康",
+        "keywords": ["情绪", "焦虑", "内耗", "边界感", "自我价值", "创伤", "PTSD", "CPTSD", "EMDR", "躯体化", "疗愈", "治愈", "原生家庭", "童年", "讨好型", "内在小孩", "正念", "冥想"]
+      },
+      {
+        "emoji": "🔍",
+        "name": "人性与识人",
+        "keywords": ["人性", "识人", "情商", "社交", "人际", "微表情", "博弈", "城府", "段位", "看人", "人品"]
+      },
+      {
+        "emoji": "✨",
+        "name": "哲学与灵性",
+        "keywords": ["哲学", "灵性", "修行", "因果", "冥想", "存在主义", "显化", "吸引力法则", "宇宙", "意义", "开悟", "觉醒", "深夜talk"]
+      },
+      {
+        "emoji": "🎤",
+        "name": "名人访谈与解读",
+        "keywords": ["访谈", "对谈", "播客", "鲁豫", "易立竞", "罗翔", "刘晓庆", "向佐", "全红婵", "刘翔", "梅西", "刘浩存", "名人"]
+      },
+      {
+        "emoji": "💒",
+        "name": "婚姻与家庭",
+        "keywords": ["婚姻", "家庭", "夫妻", "离婚", "育儿", "父母", "亲子", "家庭关系", "婆媳"]
+      },
+      {
+        "emoji": "🌿",
+        "name": "健康与养生",
+        "keywords": ["养生", "健康", "护肤", "抗衰", "衰老", "端粒", "甲基化", "睡眠", "气血", "身弱", "生物年龄", "皮肤"]
+      },
+      {
+        "emoji": "💰",
+        "name": "财富与职业",
+        "keywords": ["财富", "致富", "职业", "赚钱", "创业", "理财", "快车道", "副业", "工作", "事业"]
+      },
+      {
+        "emoji": "🎬",
+        "name": "电影与文化",
+        "keywords": ["电影", "影评", "电视剧", "纪录片", "书评", "文化", "阿嬷的情书", "主角", "挽救计划"]
+      },
+      {
+        "emoji": "👗",
+        "name": "穿搭与外在形象",
+        "keywords": ["穿搭", "外在", "形象", "时尚", "变美", "气质", "造型"]
+      },
+      {
+        "emoji": "📁",
+        "name": "其他",
+        "keywords": [],
+        "note": "无法归入以上分类的内容放在这里"
+      }
+    ],
+    "matching_rules": {
+      "strategy": "按关键词命中数量排序，优先匹配命中最多的分类",
+      "tie_breaking": "如果多个分类命中数相同，按categories数组中的顺序优先",
+      "fallback": "完全无法匹配时归入📁其他"
+    }
+  },
+
+  "git_sync": {
+    "remote": "origin",
+    "branch": "main",
+    "repo": "git@github.com:Fan-zexu/dy-zyg-subtitle.git",
+    "commit_template_single": "feat: 新增视频笔记 - {video_title}",
+    "commit_template_batch": "feat: 批量新增 {count} 个视频笔记",
+    "auto_push": true
+  }
+}
